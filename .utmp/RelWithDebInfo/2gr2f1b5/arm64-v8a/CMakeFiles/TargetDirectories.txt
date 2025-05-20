@@ -1,0 +1,5 @@
+D:/UnityProjects/EMG_Prototype/.utmp/RelWithDebInfo/2gr2f1b5/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/UnityProjects/EMG_Prototype/.utmp/RelWithDebInfo/2gr2f1b5/arm64-v8a/CMakeFiles/rebuild_cache.dir
+D:/UnityProjects/EMG_Prototype/.utmp/RelWithDebInfo/2gr2f1b5/arm64-v8a/GameActivity/CMakeFiles/game.dir
+D:/UnityProjects/EMG_Prototype/.utmp/RelWithDebInfo/2gr2f1b5/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+D:/UnityProjects/EMG_Prototype/.utmp/RelWithDebInfo/2gr2f1b5/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
