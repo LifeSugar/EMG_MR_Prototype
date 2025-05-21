@@ -16,11 +16,16 @@ public class EMGReader : MonoBehaviour
     [Header("Wi-Fi")]
     public string ip = "192.168.137.2";
     public int    port = 3333;
+    public TextMeshProUGUI wifiInfo;
 
     [Header("UI/Plot")]
     public RealtimePlot plot;
     public TextMeshProUGUI rawTMP;
     public TextMeshProUGUI rmsTMP;
+    // public UGUIWavePlot rawWavePlot;
+    // public TextMeshProUGUI rmsWavePlot;
+    
+    public LineDrawer rawLine;
 
     /* runtime */
     SerialPort  serial;
@@ -58,8 +63,11 @@ public class EMGReader : MonoBehaviour
             tcp.NoDelay = true;
             reader = new StreamReader(tcp.GetStream());
             Debug.Log($"<color=cyan>[EMG] Wi-Fi connected {ip}:{port}</color>");
+            wifiInfo.text = $"[EMG] Wi-Fi connected {ip}:{port}\n";
+            
         }catch(System.Exception e){
             Debug.LogError($"TCP connect fail: {e.Message}");
+            wifiInfo.text = $"[EMG] Wi-Fi connect fail: {e.Message}";
         }
     }
 
@@ -91,9 +99,10 @@ public class EMGReader : MonoBehaviour
     void Update()
     {
         plot.Push(rawVal, rmsVal);
+        rawLine.PushSample(rawVal);
         rawTMP.text = $"Raw = {rawVal}";
         rmsTMP.text = $"RMS = {rmsVal:F1}";
-        Debug.Log($"{rawVal}, {rmsVal:F1}");
+        // Debug.Log($"{rawVal}, {rmsVal:F1}");
     }
 
     void OnApplicationQuit()
