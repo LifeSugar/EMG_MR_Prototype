@@ -4,7 +4,7 @@ using UnityEngine.UI.Extensions;
 public class LineDrawer : MonoBehaviour
 {
     [Header("UI Line")]
-    public UILineRenderer line;          // 拖入 UILineRenderer
+    public UILineRenderer line;  
 
     [Header("Plot Settings")]
     public int   maxPoints = 500;
@@ -32,12 +32,12 @@ public class LineDrawer : MonoBehaviour
     /// <summary>推入一个新采样（最新点将显示在最左端）</summary>
     public void PushSample(float adcValue)
     {
-        // 1. 写入环缓存
+        
         ringBuf[cursor] = (adcValue + yOffset) * yScale;
         cursor = (cursor + 1) % maxPoints;
 
-        // 2. 按“时间先进先右”的顺序映射到 drawPts
-        //    最新点 = 左端 0，下一个 = 1 ...
+        //按“先进先右”的顺序映射到 drawPts
+        //    最新点 = 左端 0，下一个 = 1
         for (int i = 0; i < maxPoints; i++)
         {
             // ringIndex 从 cursor-1 开始逆序取
@@ -45,7 +45,7 @@ public class LineDrawer : MonoBehaviour
             drawPts[i].y = ringBuf[ringIndex];
         }
 
-        // 3. 通知 UILineRenderer 重建网格
+        //UILineRenderer 重建网格
         line.Points = drawPts;
         line.SetVerticesDirty();
     }

@@ -35,18 +35,18 @@ public class UGUIWavePlot : MonoBehaviour
 
     public void PushSample(float value)
     {
-        // 1. 清当前列
+        //清当前列
         tex.SetPixels(xPos, 0, 1, height, bgLine);
 
-        // 2. 写一个像素
+        //写一个像素
         int y = Mathf.Clamp(Mathf.RoundToInt((value * yScale) + height / 2), 0, height - 1);
         tex.SetPixel(xPos, y, lineColor);
         tex.Apply(false);
 
-        // 3. 移动写入指针
+        //移动写入指针
         xPos = (xPos + 1) % width;
 
-        // 4. 更新 RawImage 的 uvRect.x，使纹理滚动
+        //更新 RawImage 的 uvRect.x，使纹理滚动
         //  (0..1 对应 0..width)
         var r = targetImage.uvRect;
         r.x = (float)xPos / width;

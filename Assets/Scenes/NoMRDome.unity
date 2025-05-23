@@ -543,7 +543,7 @@ MonoBehaviour:
   useWiFi: 1
   com: COM7
   baud: 115200
-  ip: 192.168.137.154
+  ip: 192.168.137.88
   port: 3333
   wifiInfo: {fileID: 1693041215}
   plot: {fileID: 195968218}

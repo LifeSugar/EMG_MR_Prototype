@@ -8,6 +8,7 @@ using TMPro;
 public class EMGReader : MonoBehaviour
 {
     public bool useWiFi = true;
+    public bool useLineRenderer;
 
     [Header("Serial")]
     public string com = "COM7";
@@ -26,8 +27,8 @@ public class EMGReader : MonoBehaviour
     // public TextMeshProUGUI rmsWavePlot;
     
     public LineDrawer rawLine;
-
-    /* runtime */
+    public LineDrawer rmsLine;
+    
     SerialPort  serial;
     TcpClient   tcp;
     StreamReader reader;
@@ -98,8 +99,11 @@ public class EMGReader : MonoBehaviour
 
     void Update()
     {
-        plot.Push(rawVal, rmsVal);
-        rawLine.PushSample(rawVal);
+        if (useLineRenderer)
+            plot.Push(rawVal, rmsVal);
+        if (showRaw)
+            rawLine.PushSample(rawVal);
+        rmsLine.PushSample(rmsVal);
         rawTMP.text = $"Raw = {rawVal}";
         rmsTMP.text = $"RMS = {rmsVal:F1}";
         // Debug.Log($"{rawVal}, {rmsVal:F1}");
@@ -111,5 +115,23 @@ public class EMGReader : MonoBehaviour
         t?.Join();
         serial?.Close();
         tcp?.Close();
+    }
+    
+    private bool showRaw = false;
+    public TextMeshPro showRawTMP;
+    public void SwitchRaw()
+    {
+        if (showRaw)
+        {
+            rawLine.gameObject.SetActive(false);
+            showRaw = false;
+            showRawTMP.text = "Show\nRaw";
+        }
+        else
+        {
+            rawLine.gameObject.SetActive(true);
+            showRaw = true;
+            showRawTMP.text = "Hide\nRaw";
+        }
     }
 }
